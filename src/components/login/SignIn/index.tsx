@@ -1,6 +1,6 @@
 import React from 'react'
 import {Modal,Form, Input, Button, Checkbox,Space,} from 'antd'
-import {TriangleIcon,TriangleReverseIcon,UserInfoIcon,UserLockIcon} from '@/assets/svg'
+import {TriangleIcon,TriangleReverseIcon,UserInfoIcon,UserLockIcon,UserEmailIcon} from '@/assets/svg'
 
 import styles  from './index.less'
 // 改为input
@@ -25,7 +25,7 @@ const Login=()=>{
           }
         }
         style={{
-          height: 480,
+          height: 584,
           backgroundColor:"#fff",
           boxShadow: "0px 12px 42px rgba(0, 0, 0, 0.12)",
           borderRadius: 8,
@@ -67,11 +67,20 @@ const Login=()=>{
               >
                 <Input
                   className={styles.InputStyle}
-                  prefix={<UserInfoIcon/>}
+                  prefix={<UserEmailIcon/>}
                   placeholder="用户名"
                 />
               </Form.Item>
-
+              <Form.Item
+                className={styles.FormItem}
+                rules={[{ required: true, message: 'Please input your username!' }]}
+              >
+                <Input
+                  className={styles.InputStyle}
+                  prefix={<UserInfoIcon/>}
+                  placeholder="邮箱"
+                />
+              </Form.Item>
               <Form.Item
                 className={styles.FormItem}
                 rules={[{ required: true, message: 'Please input your password!' }]}
@@ -81,6 +90,16 @@ const Login=()=>{
                   prefix={<UserLockIcon/>}
                   placeholder="密码"/>
               </Form.Item>
+
+              <Form.Item
+                className={styles.FormItem}
+                rules={[{ required: true, message: 'Please input your password!' }]}
+              >
+                <Input.Password
+                  className={styles.InputStyle}
+                  prefix={<UserLockIcon/>}
+                  placeholder="确认密码"/>
+              </Form.Item>
               <Form.Item
                 className={styles.FormItem}
                 style={{
@@ -88,16 +107,16 @@ const Login=()=>{
                 }}
                 name="remember" valuePropName="checked">
                 <Checkbox
-                  className={styles.CheckStyle}>记住账号</Checkbox>
+                  className={styles.CheckStyle}>我已阅读并同意《用户协议》</Checkbox>
               </Form.Item>
             </Space>
             <Form.Item
               className={styles.FormItem}
             >
               <Button className={styles.ButtonStyle} type="primary" htmlType="submit">
-              登录
+    登录
               </Button>
-              <p className={styles.signIn}>没有账号？去<a>注册</a></p>
+              <p className={styles.signIn}>已有账号？<a>立即登录</a></p>
             </Form.Item>
           </Form>
         </div>

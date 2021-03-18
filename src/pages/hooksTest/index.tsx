@@ -1,17 +1,21 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react'
 import useDebounce from "@/hooks/useDebounce.ts"
 import useThrottleFn from "@/hooks/useThrottleFn.ts"
 import useThrottle from '@/hooks/useThrottle.ts'
 import useUpdateEffct from "@/hooks/useUpdateEffect.ts"
 
-
+const data: any[]=[]
+for(let i=0;i<30;i++){
+  data.push((i))
+}
 export default (props: any) => {
+
   const [a, setA] = useState(0)
   const [b, setB] = useState(0)
   const res=useThrottle(a,2000)
-  const [c,setC]=useState(0);
+  const [c,setC]=useState(0)
   useEffect(()=>{
-  console.log("did effct")
+    console.log("did effct")
   },[a])
   const effct=()=>{
     console.log("use effct")
@@ -30,8 +34,18 @@ export default (props: any) => {
   const changeIpt = (e) => {
     setA(e.target.value)
   }
+  const List=(<div>{
+    data.map((item)=>{
+      return (<li style={{ height:20, backgroundColor:'red' }}>{item}</li>)
+    })
+  }
+  </div>
+  )
   return <div>
-    <p>debounce 测试</p>
+    <ul>
+      {List}
+    </ul>
+    <p>debounce</p>
     <input type="text" onChange={changeIpt} />
     { b } { a }
     <button

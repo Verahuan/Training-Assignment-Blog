@@ -7,7 +7,11 @@ export default defineConfig({
     { path: '/puzzlecards', component: '@/pages/components/puzzlecards.tsx' },
     { path: '/new', component: '@/pages/newFeatures' },
     {path:"/test",component:"@/pages/hooksTest"},
-    {path:"/login",component:'@/components/login'}
+    {path:"/login",component:'@/components/login'},
+    {path:"/signIn",component:'@/components/login/SignIn'},
+    {path:"/content",component:'@/components/articleContent'},
+    {path:"/management",component:'@/components/management'},
+    {path:"/writing",component:'@/components/writing'},
   ],
   antd: {},
   mock: false,

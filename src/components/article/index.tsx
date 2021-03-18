@@ -8,7 +8,7 @@ const { Content } = Layout
 const { Title, Paragraph, Text, Link } = Typography
 const data={
   head:"图文版设计分会：基础设计原理",
-  name:"张三丰",
+  name:"张丰",
   time:"2020-08-12 12:31",
   reading:"20192",
   comments:"192",
