@@ -40,6 +40,12 @@ const UserLockSvg=()=>(
     <path fillRule="evenodd" clipRule="evenodd" d="M10.4748 2.52512C9.8185 1.86875 8.92826 1.5 8 1.5C7.07175 1.5 6.18151 1.86875 5.52511 2.52512C4.86874 3.18151 4.5 4.07175 4.5 5V7H3.91667C2.99474 7 2.25 7.7544 2.25 8.68179V12.8182C2.25 13.7456 2.99474 14.5 3.91667 14.5H12.0833C13.0053 14.5 13.75 13.7456 13.75 12.8182V8.68179C13.75 7.7544 13.0053 7 12.0833 7H11.5V5L11.4966 4.84567C11.4582 3.97354 11.0948 3.14503 10.4748 2.52512ZM10.5 7V5C10.5 4.33696 10.2366 3.70108 9.76774 3.23223C9.29892 2.76339 8.66304 2.5 8 2.5C7.33696 2.5 6.70107 2.76339 6.23222 3.23223C5.79464 3.66981 5.53603 4.25291 5.50349 4.86779L5.5 5V7H10.5ZM3.91667 8H12.0833C12.4501 8 12.75 8.30382 12.75 8.68179V12.8182C12.75 13.1962 12.4501 13.5 12.0833 13.5H3.91667C3.54993 13.5 3.25 13.1962 3.25 12.8182V8.68179C3.25 8.30382 3.54993 8 3.91667 8Z" fill="#8C8C8C"/>
   </svg>
 )
+// SignIn
+const UserEmailSvg=()=>(
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path fillRule="evenodd" clipRule="evenodd" d="M12.8 2.75H3.2C2.26502 2.75 1.5 3.50705 1.5 4.4375V11.5625C1.5 12.4929 2.26502 13.25 3.2 13.25H12.8C13.735 13.25 14.5 12.4929 14.5 11.5625V4.4375C14.5 3.50706 13.735 2.75 12.8 2.75ZM3.2 3.75H12.8C12.9957 3.75 13.1733 3.83052 13.3006 3.95905L8 7.8305L2.69937 3.95905C2.82671 3.83052 3.00431 3.75 3.2 3.75ZM2.5 5.05179V11.5625C2.5 11.9383 2.81498 12.25 3.2 12.25H12.8C13.185 12.25 13.5 11.9383 13.5 11.5625V5.0518L8.29492 8.85374C8.13681 8.96923 7.92783 8.98078 7.75954 8.88839L7.70508 8.85374L2.5 5.05179Z" fill="#8C8C8C"/>
+  </svg>
+)
 
 const MessageIcon = props => <Icon component={messageSvg} {...props} />
 const ReadingIcon = props => <Icon component={ReadingSvg} {...props} />
@@ -48,6 +54,7 @@ const TriangleIcon = props => <Icon component={TriangleSvg} {...props} />
 const TriangleReverseIcon = props => <Icon component={TriangleReverseSvg} {...props} />
 const UserInfoIcon = props => <Icon component={UserInfoSvg} {...props} />
 const UserLockIcon = props => <Icon component={UserLockSvg} {...props} />
+const UserEmailIcon = props => <Icon component={UserEmailSvg} {...props} />
 
 export {
   MessageIcon,
@@ -56,5 +63,6 @@ export {
   TriangleIcon,
   TriangleReverseIcon,
   UserInfoIcon,
-  UserLockIcon
+  UserLockIcon,
+  UserEmailIcon
 }
