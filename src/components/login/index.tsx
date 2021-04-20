@@ -1,15 +1,26 @@
-import React from 'react'
+import React, {useState,useEffect} from 'react'
+import { connect, Link } from 'umi'
 import {Modal,Form, Input, Button, Checkbox,Space,} from 'antd'
 import {TriangleIcon,TriangleReverseIcon,UserInfoIcon,UserLockIcon} from '@/assets/svg'
 
 import styles  from './index.less'
 // 改为input
 
-const Login=()=>{
-  const onFinish = (values: any) => {
-    console.log('Success:', values)
-  }
+const Login= (props)=>{
 
+  const onFinish = async (values: any) => {
+    const count=values.username
+    const pass=values.password
+    const parmas={
+      password:pass,
+      username:count,
+      type:"hh"
+    }
+    await props.dispatch({
+      type: 'userRelatedModel/getRemote',
+      payload: parmas
+    })
+  }
   const onFinishFailed = (errorInfo: any) => {
     console.log('Failed:', errorInfo)
   }
@@ -37,10 +48,11 @@ const Login=()=>{
         footer={null}
         closable={false}
         maskClosable={false}
+        destroyOnClose={true}
       >
         <div>
           <Form
-            name="basic"
+            name="normal_login"
             initialValues={{ remember: true }}
             onFinish={onFinish}
             onFinishFailed={onFinishFailed}
@@ -62,8 +74,9 @@ const Login=()=>{
             </Space>
             <Space direction={'vertical'} size={20}>
               <Form.Item
+                name="username"
                 className={styles.FormItem}
-                rules={[{ required: true, message: 'Please input your username!' }]}
+                rules={[{ required: true, message: '请输入用户名' }]}
               >
                 <Input
                   className={styles.InputStyle}
@@ -71,10 +84,10 @@ const Login=()=>{
                   placeholder="用户名"
                 />
               </Form.Item>
-
               <Form.Item
+                name="password"
                 className={styles.FormItem}
-                rules={[{ required: true, message: 'Please input your password!' }]}
+                rules={[{ required: true, message: '请输入密码' }]}
               >
                 <Input.Password
                   className={styles.InputStyle}
@@ -97,7 +110,10 @@ const Login=()=>{
               <Button className={styles.ButtonStyle} type="primary" htmlType="submit">
               登录
               </Button>
-              <p className={styles.signIn}>没有账号？去<a>注册</a></p>
+              <p className={styles.signIn}>没有账号？去
+
+                <Link to='/signIn'><a>注册</a></Link>
+              </p>
             </Form.Item>
           </Form>
         </div>
@@ -105,5 +121,10 @@ const Login=()=>{
     </div>
   )
 }
+const mapStateToProps = ({ userRelatedModel }) => {
+  return {
+    userRelatedModel,
+  }
+}
 
-export default Login
+export default connect(mapStateToProps)(Login)

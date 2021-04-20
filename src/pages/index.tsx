@@ -1,5 +1,5 @@
 import React from 'react'
-import { Layout ,Pagination ,Space} from 'antd'
+import { Affix, Layout, Menu, Pagination, Space } from 'antd'
 
 import HeaderAntD from '@/components/header'
 import Article from '@/components/article'
@@ -11,7 +11,9 @@ const { Header, Footer, Sider, Content } = Layout
 export default (props: any) => {
 
   return <div>
-    <HeaderAntD/>
+    <Affix offsetTop={0}>
+      <HeaderAntD/>
+    </Affix>
     <Layout className="indexLayout">
       <Content className="indexContent">
         <Space size={8} direction="vertical">

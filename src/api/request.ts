@@ -1,8 +1,29 @@
-import axios from "axios"
+import { request } from 'umi'
+// request 方法的第一个参数是url
+export const getRemoteList = async ({url}) => {
+  return request(url, {
+    method: "get",
+  })
+    .then((response) => {
 
-let fetch = axios.create({
-  baseURL: "", // 这里是本地express启动的服务地址
-  timeout: 5000 // request timeout
-})
-export default fetch
+      return response
+    })
+    .catch((error) => {
+      console.log("error",error)
+    })
+}
+export const postRemoteList = async ({ url,values, type }) => {
+  // call那部分是传入的对象，所以使用的时候按照对象的使用来
+  request(url, {
+    method: 'post',
+    data: values
+  })
+    .then((response) => {
+      console.log("okkkkk",response.data)
+      return response.data
+    })
+    .catch((error) => {
+      console.log(error)
+    })
+}
 

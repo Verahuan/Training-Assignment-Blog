@@ -14,7 +14,10 @@ export default defineConfig({
     {path:"/writing",component:'@/components/writing'},
   ],
   antd: {},
-  mock: false,
+  dva: {
+
+  },
+  mock: {},
   cssModulesTypescriptLoader: {},
   proxy: {
     '/api': {

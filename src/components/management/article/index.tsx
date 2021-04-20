@@ -1,6 +1,7 @@
 // input table 结合网络请求 数据处理过程交给服务端
-import { Table,Button,Space,Popconfirm, Tag,Input } from 'antd'
 import {useState} from 'react'
+import { Table,Button,Space,Popconfirm, Tag,Input } from 'antd'
+import {Link} from "umi"
 import {SearchIcon,PlusCircleIcon} from '@/assets/svg'
 import styles from "./index.less"
 import React from 'react'
@@ -85,9 +86,11 @@ const ArticleManagement=()=>{
   return (
     <>
       <Input placeholder="搜索文章标题" prefix={<SearchIcon/>} className={styles.input}/>
-      <Button type="primary" icon={<PlusCircleIcon />} className={styles.btn}>
-        新键文章
-      </Button>
+      <Link to="/writing">
+        <Button type="primary" icon={<PlusCircleIcon />} className={styles.btn}>
+          新键文章
+        </Button>
+      </Link>
       <Table
         rowSelection={rowSelection} columns={columns} dataSource={dataSource} pagination={{
           showQuickJumper:true,

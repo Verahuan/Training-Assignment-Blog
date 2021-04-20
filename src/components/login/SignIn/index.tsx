@@ -1,11 +1,12 @@
 import React from 'react'
+import {Link} from 'umi'
 import {Modal,Form, Input, Button, Checkbox,Space,} from 'antd'
 import {TriangleIcon,TriangleReverseIcon,UserInfoIcon,UserLockIcon,UserEmailIcon} from '@/assets/svg'
 
 import styles  from './index.less'
 // 改为input
 
-const Login=()=>{
+const SignIn=(props)=>{
   const onFinish = (values: any) => {
     console.log('Success:', values)
   }
@@ -32,11 +33,11 @@ const Login=()=>{
         }
         }
         width={440}
-        visible={true}
         centered={true}
         footer={null}
         closable={false}
         maskClosable={false}
+        visible={props.isModalVisible}
       >
         <div>
           <Form
@@ -62,8 +63,9 @@ const Login=()=>{
             </Space>
             <Space direction={'vertical'} size={20}>
               <Form.Item
+                name="username"
                 className={styles.FormItem}
-                rules={[{ required: true, message: 'Please input your username!' }]}
+                rules={[{ required: true, message: '请输入用户名' }]}
               >
                 <Input
                   className={styles.InputStyle}
@@ -72,8 +74,9 @@ const Login=()=>{
                 />
               </Form.Item>
               <Form.Item
+                name="email"
                 className={styles.FormItem}
-                rules={[{ required: true, message: 'Please input your username!' }]}
+                rules={[{ required: true, message: '请输入邮箱号' }]}
               >
                 <Input
                   className={styles.InputStyle}
@@ -82,8 +85,9 @@ const Login=()=>{
                 />
               </Form.Item>
               <Form.Item
+                name="password"
                 className={styles.FormItem}
-                rules={[{ required: true, message: 'Please input your password!' }]}
+                rules={[{ required: true, message: '请输入密码' }]}
               >
                 <Input.Password
                   className={styles.InputStyle}
@@ -92,8 +96,9 @@ const Login=()=>{
               </Form.Item>
 
               <Form.Item
+                name="confirm"
                 className={styles.FormItem}
-                rules={[{ required: true, message: 'Please input your password!' }]}
+                rules={[{ required: true, message: '请再次输入密码' }]}
               >
                 <Input.Password
                   className={styles.InputStyle}
@@ -116,7 +121,11 @@ const Login=()=>{
               <Button className={styles.ButtonStyle} type="primary" htmlType="submit">
     登录
               </Button>
-              <p className={styles.signIn}>已有账号？<a>立即登录</a></p>
+              <p className={styles.signIn}>已有账号？
+                <Link to='/login'>
+                  <a>立即登录</a>
+                </Link>
+              </p>
             </Form.Item>
           </Form>
         </div>
@@ -125,4 +134,4 @@ const Login=()=>{
   )
 }
 
-export default Login
+export default SignIn
