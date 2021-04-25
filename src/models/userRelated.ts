@@ -7,7 +7,7 @@ interface userRelatedType{
   state: {},
   reducers: {
     getList: Reducer,
-    changeLogin:Reducer
+    changeLogin: Reducer
   },
   effects: {
     getRemote: Effect

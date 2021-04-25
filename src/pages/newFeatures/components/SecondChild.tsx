@@ -1,5 +1,5 @@
-import React from 'react';
-import { batteryContext, onlineContext } from '@/pages/newFeatures';
+import React from 'react'
+import { batteryContext, onlineContext } from '@/pages/newFeatures'
 
 const SecondChild = () => {
   return (
@@ -19,7 +19,7 @@ const SecondChild = () => {
         </>
       )}
     </batteryContext.Consumer>
-  );
-};
+  )
+}
 
-export default SecondChild;
+export default SecondChild

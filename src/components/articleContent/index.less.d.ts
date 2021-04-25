@@ -2,8 +2,11 @@
 // Please do not change this file!
 interface CssExports {
   'articleAnchor': string;
+  'articleAnchorLink': string;
   'articleBread': string;
   'articleContent': string;
+  'articleContentH1': string;
+  'articleContentH2': string;
   'articleInfo': string;
   'articleLayout': string;
   'articleLeft': string;

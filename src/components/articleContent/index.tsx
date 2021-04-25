@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
+import {connect} from 'umi'
 import HeaderAntD from '@/components/header'
 import { Avatar, Breadcrumb, Divider, Space, Typography,Affix,Anchor,Tree, Comment,Input,Button,BackTop } from 'antd'
 import styles from './index.less'
 import { UserOutlined } from '@ant-design/icons'
-import { MessageIcon, ReadingIcon } from '@/assets/svg'
+import { MessageIcon, ReadingIcon,TreeDownSvgIcon } from '@/assets/svg'
 
 const { Title, Paragraph} = Typography
 const {Link} = Anchor
@@ -18,59 +19,105 @@ const data={
   tags:["用户体验","设计原则","设计原则","设计原则"]
 }
 
-const treeData = [
-  {
-    title: 'parent 1',
-    key: '0-0',
-    children: [
-      {
-        title: <Link href="#title1" title="title1"/>,
-        key: '0-0-0',
-        disabled: true,
-        children: [
-          {
-            title:  <Link href="#title2" title="title2" />,
-            key: '0-0-0-0',
-          },
-          {
-            title: <Link href="#title3" title="title3" />,
-            key: '0-0-0-1',
-          },
-        ],
-      },
-      {
-        title: <Link href="#title4" title="title4" />,
-        key: '0-0-1',
-        children: [{ title: <span style={{ color: '#1890ff' }}>sss</span>, key: '0-0-1-0' }],
-      },
-    ],
-  },
-]
-const SingleConment=({children })=>{
+const contentToTree=(content)=>{
+  const TreeDate=[]
+  content.map((item)=>{
+    console.log(item.title,"title")
+    const temp={
+      title:<Link href={`#${item.id}`} title={item.title} className={styles.articleAnchorLink}/>,
+      key: item.id
+    }
+    if(item.children){
+      temp.children=[]
+      item.children.map((child)=>{
+        temp.children.push({
+          title:<Link href={`#${child.id}`} title={child.title} className={styles.articleAnchorLink}/>,
+          key: child.id
+        })
+      })
+    }
+    TreeDate.push(temp)
+  })
+  return TreeDate
+}
+const LinkRoad=()=>{
   return (
-    <Comment
-      actions={[<span key="comment-nested-reply-to">Reply to</span>]}
-      author={<a>Han Solo</a>}
-      avatar={
-        <Avatar
-          src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
-          alt="Han Solo"
-        />
-      }
-      content={
-        <p>
-          We supply a series of design principles, practical patterns and high quality design
-          resources (Sketch and Axure).
-        </p>
-      }
-    >{
-        children
-      }
-    </Comment>
+    <div>zhhh</div>
   )
 }
-const ArticleContent=()=>{
-  const {head,name,time,reading,comments,content,tags}=data
+const SingleConment=({data})=>{
+  return (
+    <div>
+      {
+        data.map((item)=>{
+          return (<Comment
+            actions={[<span key="comment-nested-reply-to">Reply to</span>]}
+            author={<a>{item.author}</a>}
+            avatar={
+              <Avatar
+                src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
+                alt="Han Solo"
+              />
+            }
+            content={
+              <p>
+                {item.content}
+              </p>
+            }
+          >{}
+          </Comment>)
+        })
+      }
+    </div>
+
+  )
+}
+const ContentShow=(props)=>{
+  return (
+    <div>
+      {
+        props.content.map((item)=>{
+          console.log(item.children,"item")
+          return (<div >
+            <div id={item.id} className={styles.articleContentH1}>{item.title}</div>
+            <div className={styles.articleContent}>{item.content}</div>
+            {
+              item.children && item.children.map((child)=>{
+                return (
+                  <div>
+                    <div id={child.id} className={styles.articleContentH2}>{child.title}</div>
+                    <div className={styles.articleContent}>{child.content}</div>
+                  </div>
+                )
+              })
+            }
+          </div>)
+        })
+      }
+    </div>
+  )}
+const ArticleContent=(props)=>{
+
+  const {head,name,time,reading,comments,content,tags}=props.CurrentArticleContentModel
+  const [comment,CommentChange]=useState("")
+
+  console.log(comments,'comments')
+  const res= contentToTree(content)
+  const changeComment=(value)=>{
+    CommentChange(value)
+  }
+  const submit=()=>{
+    const node=document.getElementById("submit")
+    node.value=""
+    props.dispatch({
+      type:'CurrentArticleContentModel/changeComment',
+      payload:{
+        author:"Test",
+        content:comment
+      }
+    })
+  }
+
   return (
     <>
       <Affix offsetTop={0}>
@@ -79,7 +126,7 @@ const ArticleContent=()=>{
       <div className={styles.articleLayout}>
         <div className={styles.articleLeft}>
           <Breadcrumb separator=">" className={styles.articleBread}>
-            <Breadcrumb.Item href="">首页</Breadcrumb.Item>
+            <Breadcrumb.Item href="/">首页</Breadcrumb.Item>
             <Breadcrumb.Item href="">正文</Breadcrumb.Item>
           </Breadcrumb>
           <Typography>
@@ -104,29 +151,19 @@ const ArticleContent=()=>{
                 <Space size={7}>
                   <ReadingIcon/>
                   <div>
-                    {comments}
+                    {comments.length}
                   </div>
                 </Space>
               </div>
             </Space>
             <Paragraph>
               <Space size={48} direction={'vertical'}>
-                <div className={styles.articleContent} id="title1">{content}</div>
-                <div className={styles.articleContent} id="title2">{content}</div>
-                <div className={styles.articleContent} id="title4">{content}</div>
-                <div className={styles.articleContent} id="title5">{content}</div>
-                <div className={styles.articleContent}>{content}</div>
-                <div className={styles.articleContent}>{content}</div>
-                <div className={styles.articleContent}>{content}</div>
-                <div className={styles.articleContent}>{content}</div>
-                <div className={styles.articleContent}>{content}</div>
-                <div className={styles.articleContent}>{content}</div>
-                <div className={styles.articleContent} id="title3" style={{backgroundColor:'red'}}>{content}</div>
+                <ContentShow content={content}/>
               </Space>
             </Paragraph>
           </Typography>
           <div style={{marginTop:72}}>
-            全部评论{comments}
+            全部评论({comments.length})
             <Divider/>
             <div style={{
               position:'relative',
@@ -136,32 +173,29 @@ const ArticleContent=()=>{
                   src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
                   alt="Han Solo"
                 />
-                <TextArea rows={4} style={{width:757,height:98}}/>
+                <TextArea id="submit" rows={4} style={{width:757,height:98}} onChange={(e)=>{changeComment(e.target.value)}}/>
               </Space>
               <Button
-                disabled={true} style={{
+
+                style={{
                   position:'absolute',
                   right:0,
                   top:138
-                }}>发表评论</Button>
+                }}
+                onClick={submit}
+              >发表评论</Button>
 
             </div>
             <div style={{
               marginTop:68
             }}>
-              <SingleConment>
-                <SingleConment>
-                  <SingleConment/>
-                </SingleConment>
-              </SingleConment>
+              <SingleConment data={comments}/>
               <Divider style={{
                 marginTop:48,
                 marginBottom:160
               }}>没有更多评论了</Divider>
             </div>
-
           </div>
-
         </div>
         <div className={styles.articleRight}>
           <Affix offsetTop={137}>
@@ -169,18 +203,28 @@ const ArticleContent=()=>{
               文章目录
               <Anchor
                 targetOffset={window.innerHeight / 2}
-                className={styles.articleAnchor}>
-                <Tree treeData={treeData} defaultExpandAll={true}>
+                className={styles.articleAnchor}
+                affix={false}
+                showInkInFixed={false}
+              >
+                <Tree
+                  treeData={res}
+                  defaultExpandAll={true}
+                  switcherIcon={<TreeDownSvgIcon />}
+                >
                 </Tree>
               </Anchor>
             </div>
           </Affix>
-
         </div>
         <BackTop/>
       </div>
-
     </>
   )
 }
-export default ArticleContent
+const mapStateToModel=({CurrentArticleContentModel})=>{
+  return {
+    CurrentArticleContentModel
+  }
+}
+export default connect(mapStateToModel)(ArticleContent)

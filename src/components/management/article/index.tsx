@@ -1,7 +1,7 @@
 // input table 结合网络请求 数据处理过程交给服务端
 import {useState} from 'react'
 import { Table,Button,Space,Popconfirm, Tag,Input } from 'antd'
-import {Link} from "umi"
+import {Link,connect} from "umi"
 import {SearchIcon,PlusCircleIcon} from '@/assets/svg'
 import styles from "./index.less"
 import React from 'react'
@@ -12,6 +12,8 @@ for (let i = 0; i < 46; i++) {
     key: i,
     name: `Edward King ${i}`,
     age: 32,
+    content:`<p>这是第${i}篇的内容</p>`,
+    tags:["持续","加油","可可爱爱"],
     state: i%2?"已发布":(<Tag color='red'>草稿</Tag>),
     stateFilter:i%2?"已发布":"草稿",
     time:`${i}hours`,
@@ -19,8 +21,31 @@ for (let i = 0; i < 46; i++) {
   })
 }
 
-const ArticleManagement=()=>{
+const ArticleManagement=(props)=>{
   const [dataSource,changeDateSource]=useState(data)
+  const Edit=(id)=>{
+    props.dispatch({
+      type:'articleContentModel/getList',
+      payload:{
+        title:data[id].name,
+        content:data[id].content,
+        tags:data[id].tags
+      }
+    })
+  }
+  const newEdit=()=>{
+    props.dispatch({
+      type:'articleContentModel/getList',
+      payload:{
+        title:"",
+        content:"",
+        tags:[]
+      }
+    })
+
+  }
+
+  console.log(props.articleContentModel,"model")
   const columns = [
     {
       title: '标题',
@@ -52,18 +77,23 @@ const ArticleManagement=()=>{
     {
       title: '操作',
       dataIndex: 'operation',
-      render: (_, record) =>
+      render: (text, record) =>
         data.length >= 1 ? (
           <Space size={16}>
-            <a
-              href="#"
-              onClick={console.log("edit")}
-              style={{
-                marginRight: 8,
-              }}
-            >
-            编辑
-            </a>
+            <Link to="/writing">
+              <a
+                href="#"
+                onClick={()=>{
+                  Edit(record.key)
+                }}
+                style={{
+                  marginRight: 8,
+                }}
+              >
+                编辑
+              </a>
+            </Link>
+
             <Popconfirm
               title="Sure to delete?" onConfirm={() => {
                 const newDate=[...dataSource]
@@ -87,7 +117,7 @@ const ArticleManagement=()=>{
     <>
       <Input placeholder="搜索文章标题" prefix={<SearchIcon/>} className={styles.input}/>
       <Link to="/writing">
-        <Button type="primary" icon={<PlusCircleIcon />} className={styles.btn}>
+        <Button type="primary" icon={<PlusCircleIcon />} className={styles.btn} onClick={newEdit}>
           新键文章
         </Button>
       </Link>
@@ -113,4 +143,10 @@ const ArticleManagement=()=>{
     </>
   )
 }
-export default ArticleManagement
+
+const mapStateToProps=({articleContentModel})=>{
+  return {
+    articleContentModel
+  }
+}
+export default connect(mapStateToProps)(ArticleManagement)

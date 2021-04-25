@@ -9,7 +9,7 @@
 import {useEffect,useRef} from "react"
 
 function useDebounce(Func: Function, wait: number,immediate=false,deps = []){
-  let timer=useRef()
+  const timer=useRef()
   const debounced=function(){
     if(timer) clearTimeout(timer) // clear之后依然不是undefined,只有初次是undefined
     if(immediate){

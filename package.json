@@ -29,6 +29,7 @@
     "axios": "^0.21.1",
     "braft-editor": "^2.3.9",
     "lodash": "^4.17.20",
+    "moment": "^2.29.1",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
     "umi": "^3.3.4"

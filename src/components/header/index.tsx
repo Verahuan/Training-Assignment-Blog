@@ -116,16 +116,18 @@ const HeaderAntD = (props) => {
     <div className="main">
       {props.userRelatedModel.loading}
       <Affix offsetTop={0}>
-        <Space align="center" size={8} className="logo" >
-          <Space size={-10} align="start">
-            <TriangleIcon/>
-            <TriangleReverseIcon/>
+        <Link to="/">
+          <Space align="center" size={8} className="logo" >
+            <Space size={-10} align="start">
+              <TriangleIcon/>
+              <TriangleReverseIcon/>
+            </Space>
+            <div
+              className="logoText"
+            >logo
+            </div>
           </Space>
-          <div
-            className="logoText"
-          >logo
-          </div>
-        </Space>
+        </Link>
         {isLogin && <Login isModalVisible={isLogin} />}
         <SignIn isModalVisible={isSign} />
         {initLog ? (isAdmin?<Admin username={name}/>:<User username={name}/>):<LoginOut login={LoginChange} signIn={SignInChange}/>}

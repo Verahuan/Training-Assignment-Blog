@@ -1,7 +1,7 @@
-const cookieKey = "ADMIN-KEY";
+const cookieKey = "ADMIN-KEY"
 
 export function getCookie() {
-  return localStorage.getItem(cookieKey);
+  return localStorage.getItem(cookieKey)
 }
 
 export function setCookie(value: string) {
@@ -9,5 +9,5 @@ export function setCookie(value: string) {
 }
 
 export function removeCookie() {
-  return localStorage.removeItem(cookieKey);
+  return localStorage.removeItem(cookieKey)
 }

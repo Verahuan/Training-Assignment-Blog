@@ -1,11 +1,12 @@
 import React from 'react'
-import { Layout, Space, Divider, Avatar, Typography,Tag, Image } from 'antd'
+import {connect,Link} from 'umi'
+import { Layout, Space, Divider, Avatar, Typography, Tag, Image, Table } from 'antd'
 import { UserOutlined } from '@ant-design/icons'
 import {MessageIcon,ReadingIcon} from '@/assets/svg'
 import './index.less'
 
 const { Content } = Layout
-const { Title, Paragraph, Text, Link } = Typography
+const { Title, Paragraph } = Typography
 const data={
   head:"图文版设计分会：基础设计原理",
   name:"张丰",
@@ -17,7 +18,15 @@ const data={
 }
 
 const Article=(props: any)=>{
-  const {head,name,time,reading,comments,content,tags}=data
+  const {id,head,name,time,reading,comments,content,tags}=props.data
+  const toArticleContent=()=>{
+    props.dispatch({
+      type:"CurrentArticleContentModel/getList",
+      payload:{
+        id,head,name,time,reading,comments,content,tags
+      }
+    })
+  }
   const Tags= (
     <div>
       {
@@ -41,47 +50,55 @@ const Article=(props: any)=>{
     return  null
   }
   return (
-    <div className="article">
-      <Layout>
-        <Content style={{backgroundColor:"#fff"}}>
-          <Typography>
-            <Title  level={2} className="articleTitle">
-              {head}
-            </Title>
-            <Space split={<Divider type="vertical" />} className="articleInfo">
-              <Space align="center" size={8} className="info">
-                <Avatar size={24} icon={<UserOutlined />} />
-                <div>
-                  {name}
-                </div>
-              </Space>
-              <div>发表于：{time}</div>
-              <div>
-                <Space size={7}>
-                  <MessageIcon/>
-                  <div>{reading}</div>
-                </Space>
-              </div>
-              <div>
-                <Space size={7}>
-                  <ReadingIcon/>
+    <div className="article" onClick={toArticleContent}>
+      <Link to="/content">
+        <Layout>
+          <Content style={{backgroundColor:"#fff"}}>
+            <Typography>
+              <Title  level={2} className="articleTitle">
+                {head}
+              </Title>
+              <Space split={<Divider type="vertical" />} className="articleInfo">
+                <Space align="center" size={8} className="info">
+                  <Avatar size={24} icon={<UserOutlined />} />
                   <div>
-                    {comments}
+                    {name}
                   </div>
                 </Space>
-              </div>
-            </Space>
-            <Paragraph className="paragraph">
-              <ShowImage isShowImage={false}/>
-              <div>{content}</div>
-            </Paragraph>
-          </Typography>
-        </Content>
-        <Content style={{backgroundColor:"#fff"}}>
-          {Tags}
-        </Content>
-      </Layout>
+                <div>发表于：{time}</div>
+                <div>
+                  <Space size={7}>
+                    <MessageIcon/>
+                    <div>{reading}</div>
+                  </Space>
+                </div>
+                <div>
+                  <Space size={7}>
+                    <ReadingIcon/>
+                    <div>
+                      {comments}
+                    </div>
+                  </Space>
+                </div>
+              </Space>
+              <Paragraph className="paragraph">
+                <ShowImage isShowImage={false}/>
+                <div>{content}</div>
+              </Paragraph>
+            </Typography>
+          </Content>
+          <Content style={{backgroundColor:"#fff"}}>
+            {Tags}
+          </Content>
+        </Layout>
+      </Link>
     </div>
+
   )
 }
-export default Article
+const mapStateToModel=({CurrentArticleContentModel})=>{
+  return {
+    CurrentArticleContentModel
+  }
+}
+export default connect(mapStateToModel)(Article)

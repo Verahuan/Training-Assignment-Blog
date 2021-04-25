@@ -15,7 +15,7 @@ function packResult(params) {
 }
 // 判断token
 function fetchCaptcha(req, res) {
-  res.send(packResult());
+  res.send(packResult())
 }
 function fetchCurrentInfo(req,res){
   const authorization=req.headers?.authorization

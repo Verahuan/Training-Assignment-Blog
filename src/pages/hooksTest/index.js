@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import useThrottle from '@/hooks/useThrottle.ts';
 import useUpdateEffct from "@/hooks/useUpdateEffect.ts";
+const data = [];
+for (let i = 0; i < 30; i++) {
+    data.push((i));
+}
 export default (props) => {
     const [a, setA] = useState(0);
     const [b, setB] = useState(0);
@@ -26,8 +30,12 @@ export default (props) => {
     const changeIpt = (e) => {
         setA(e.target.value);
     };
+    const List = (React.createElement("div", null, data.map((item) => {
+        return (React.createElement("li", { style: { height: 20, backgroundColor: 'red' } }, item));
+    })));
     return React.createElement("div", null,
-        React.createElement("p", null, "debounce \u6D4B\u8BD5"),
+        React.createElement("ul", null, List),
+        React.createElement("p", null, "debounce"),
         React.createElement("input", { type: "text", onChange: changeIpt }),
         b,
         " ",

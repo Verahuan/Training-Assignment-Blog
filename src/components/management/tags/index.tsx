@@ -63,7 +63,7 @@ const TagsManagement=()=>{
     <>
       <Input placeholder="搜索标签名称" prefix={<SearchIcon/>} className={styles.input}/>
       <Button type="primary" icon={<PlusCircleIcon />} className={styles.btn}>
-        新键文章
+        新键标签
       </Button>
       <Table
         rowSelection={rowSelection} columns={columns} dataSource={dataSource} pagination={{
